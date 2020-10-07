@@ -107,3 +107,8 @@ body {
   background: black;
   border-color: whitesmoke;
 }
+
+.result button:focus,
+.result button:active {
+  outline: none;
+}
