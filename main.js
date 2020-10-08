@@ -5,6 +5,7 @@ oIndex = "";
 const res = document.querySelector(".result");
 const resText = document.querySelector(".result-text");
 const reset = document.getElementById("restart");
+let count = 0;
 
 const winningCombination = [
   "123",
@@ -27,7 +28,6 @@ reset.addEventListener("click", resetGame);
 
 function select(e) {
   const targetCell = e.target;
-  console.log(targetCell);
   const XorO = turn ? "x" : "o";
   placeMark(targetCell, XorO);
   checkResult(XorO, targetCell);
@@ -51,28 +51,34 @@ function placeMark(a, b) {
 function checkResult(c, d) {
   if (c === "x") {
     xIndex += d.dataset.index;
-    xIndex = sortString(xIndex);
     for (i of winningCombination) {
-      if (xIndex.includes(i)) {
+      for (j of i) {
+        if (xIndex.includes(j)) {
+          count++;
+        }
+      }
+      if (count == 3) {
         res.classList.add("show");
         resText.innerText = "X, Wins !";
       }
+      count = 0;
     }
   }
   if (c === "o") {
     oIndex += d.dataset.index;
-    oIndex = sortString(oIndex);
     for (i of winningCombination) {
-      if (oIndex.includes(i)) {
+      for (j of i) {
+        if (oIndex.includes(j)) {
+          count++;
+        }
+      }
+      if (count == 3) {
         res.classList.add("show");
         resText.innerText = "O, Wins !";
       }
+      count = 0;
     }
   }
-}
-
-function sortString(str) {
-  return str.split("").sort().join("");
 }
 
 function resetGame() {
