@@ -6,6 +6,8 @@ const res = document.querySelector(".result");
 const resText = document.querySelector(".result-text");
 const reset = document.getElementById("restart");
 let count = 0;
+let turn = 0;
+let flag = true;
 
 const winningCombination = [
   "123",
@@ -34,6 +36,7 @@ function select(e) {
 }
 
 function placeMark(a, b) {
+  turn++;
   a.classList.add(b);
   if (b === "x") {
     a.innerText = "X";
@@ -60,8 +63,14 @@ function checkResult(c, d) {
       if (count == 3) {
         res.classList.add("show");
         resText.innerText = "X, Wins !";
+        flag = false;
       }
       count = 0;
+    }
+
+    if(flag && turn == 9) {
+      res.classList.add("show");
+      resText.innerText = "Draw !";
     }
   }
   if (c === "o") {
